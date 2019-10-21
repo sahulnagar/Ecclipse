@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN"
+			"http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+<bean id="d" class="mypack.EmpBean">
+<property name="hibernatetemplate" ref="hibernatetemplate"></property>
+</bean>
+<bean id="hibernatetemplate" class="org.springframework.orm.hibernate3.HibernateTemplate">
+<property name="sessionFactory" ref="mysessionFactory"></property>
+</bean>
+<bean id="mysessionFactory" class="org.springframework.hibernate3.LocalSessionFactoryBean">
+<property name="dataSource" ref="dataSource"></property>
+<property name="mappingResources">
+<list><value>Emp.hbm.xml</value></list>
+</property>
+<property name="hibernateProperties">
+<props>
+<prop key="hibernate.dialect">org.hibernate.dialect.OracleDialect</prop>
+<prop key="hibernate.hbm2ddl.auto">update</prop>
+<prop key="hibernate.show_sql">true</prop>
+</props>
+</property>
+</bean>
+<bean name="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"></property>
+<property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"></property>
+<property name="username" value="system"></property>
+<property name="password" value="oracle"></property>
+</bean>
+</beans>
